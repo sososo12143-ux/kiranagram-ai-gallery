@@ -25,7 +25,7 @@ const NavItem = ({ to, icon, label, badge }: NavItemProps) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `flex items-center gap-4 px-3 py-3 rounded-lg transition-all duration-200 group ${
+      `flex items-center gap-4 px-3 py-3 rounded-lg transition-all duration-200 group lg:justify-start justify-center ${
         isActive 
           ? "bg-secondary font-semibold" 
           : "hover:bg-secondary/50"
@@ -40,7 +40,7 @@ const NavItem = ({ to, icon, label, badge }: NavItemProps) => (
         </span>
       )}
     </span>
-    <span className="text-sm">{label}</span>
+    <span className="text-sm hidden lg:inline">{label}</span>
   </NavLink>
 );
 
@@ -49,11 +49,16 @@ export function Sidebar() {
     <motion.aside
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      className="fixed left-0 top-0 h-screen w-[220px] border-r border-border bg-background flex flex-col py-6 px-3 z-50"
+      className="fixed left-0 top-0 h-screen w-[72px] lg:w-[220px] border-r border-border bg-background flex-col py-6 px-3 z-50 hidden md:flex"
     >
       {/* Logo */}
       <div className="px-3 mb-8">
-        <KiranagraemLogo size="md" />
+        <div className="lg:block hidden">
+          <KiranagraemLogo size="md" />
+        </div>
+        <div className="lg:hidden flex justify-center">
+          <KiranagraemLogo size="sm" />
+        </div>
       </div>
 
       {/* Navigation */}
