@@ -5,6 +5,9 @@ import { Stories } from "@/components/home/Stories";
 import { PostCard } from "@/components/home/PostCard";
 import { RightSidebar } from "@/components/home/RightSidebar";
 import { FeedTabs } from "@/components/home/FeedTabs";
+import { MobileBottomNav } from "@/components/home/MobileBottomNav";
+import { KiranagraemLogo } from "@/components/KiranagraemLogo";
+import { Heart, MessageCircle } from "lucide-react";
 
 const mockPosts = [
   {
@@ -59,11 +62,26 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Left Sidebar */}
+      {/* Left Sidebar - Hidden on mobile */}
       <Sidebar />
 
+      {/* Mobile Header */}
+      <header className="fixed top-0 left-0 right-0 bg-background border-b border-border z-40 md:hidden">
+        <div className="flex items-center justify-between px-4 py-3">
+          <KiranagraemLogo size="sm" />
+          <div className="flex items-center gap-4">
+            <button className="hover:opacity-70 transition-opacity">
+              <Heart size={24} className="text-foreground" />
+            </button>
+            <button className="hover:opacity-70 transition-opacity">
+              <MessageCircle size={24} className="text-foreground" />
+            </button>
+          </div>
+        </div>
+      </header>
+
       {/* Main Content */}
-      <main className="ml-[220px] mr-[340px] max-w-[600px] mx-auto py-8 px-4">
+      <main className="md:ml-[72px] lg:ml-[220px] xl:mr-[340px] max-w-[600px] mx-auto py-4 md:py-8 px-4 pt-16 md:pt-8 pb-20 md:pb-8">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -91,10 +109,13 @@ export default function Home() {
         </motion.div>
       </main>
 
-      {/* Right Sidebar */}
-      <div className="fixed right-0 top-0 h-screen w-[340px] overflow-y-auto py-8 px-4 border-l border-border">
+      {/* Right Sidebar - Hidden on mobile and tablet */}
+      <div className="fixed right-0 top-0 h-screen w-[340px] overflow-y-auto py-8 px-4 border-l border-border hidden xl:block">
         <RightSidebar />
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <MobileBottomNav />
     </div>
   );
 }
