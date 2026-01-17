@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { Sidebar } from "@/components/home/Sidebar";
 import { Stories } from "@/components/home/Stories";
 import { PostCard } from "@/components/home/PostCard";
-import { RightSidebar } from "@/components/home/RightSidebar";
-import { FeedTabs } from "@/components/home/FeedTabs";
+import { HeroCard } from "@/components/home/HeroCard";
+import { DesktopHeader } from "@/components/home/DesktopHeader";
 import { MobileBottomNav } from "@/components/home/MobileBottomNav";
 import { KiranagraemLogo } from "@/components/KiranagraemLogo";
 import { Heart, MessageCircle } from "lucide-react";
@@ -12,14 +12,15 @@ import { Heart, MessageCircle } from "lucide-react";
 const mockPosts = [
   {
     id: "1",
-    username: "ghibli_dreamer",
+    username: "writings_of_wazir",
     avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
     image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800",
-    caption: "Magical forest vibes ✨ Created with AI #GhibliStyle #AIArt",
+    caption: "KALI - Mission 4: The Guardians of Kashmir ✨ #GhibliStyle #AIArt",
     likes: 2847,
     comments: 142,
-    timeAgo: "2h",
+    timeAgo: "1 w",
     isAI: true,
+    likedBy: ["mr_kir_150"],
   },
   {
     id: "2",
@@ -44,26 +45,16 @@ const mockPosts = [
     timeAgo: "6h",
     isAI: true,
   },
-  {
-    id: "4",
-    username: "dream_maker",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100",
-    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800",
-    caption: "Abstract emotions in visual form 🎨 #AbstractArt #AICreation",
-    likes: 3156,
-    comments: 164,
-    timeAgo: "8h",
-    isAI: true,
-  },
 ];
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("for-you");
-
   return (
     <div className="min-h-screen bg-background">
-      {/* Left Sidebar - Hidden on mobile */}
+      {/* Left Sidebar - Hover expandable */}
       <Sidebar />
+
+      {/* Desktop Header */}
+      <DesktopHeader />
 
       {/* Mobile Header */}
       <header className="fixed top-0 left-0 right-0 bg-background border-b border-border z-40 md:hidden">
@@ -81,7 +72,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="md:ml-[72px] lg:ml-[220px] xl:mr-[340px] max-w-[600px] mx-auto py-4 md:py-8 px-4 pt-16 md:pt-8 pb-20 md:pb-8">
+      <main className="md:ml-[72px] max-w-[580px] mx-auto py-4 md:py-8 px-4 pt-16 md:pt-20 pb-20 md:pb-8">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -90,8 +81,8 @@ export default function Home() {
           {/* Stories */}
           <Stories />
 
-          {/* Feed Tabs */}
-          <FeedTabs activeTab={activeTab} onTabChange={setActiveTab} />
+          {/* Hero Card */}
+          <HeroCard />
 
           {/* Posts */}
           <div className="space-y-6">
@@ -108,11 +99,6 @@ export default function Home() {
           </div>
         </motion.div>
       </main>
-
-      {/* Right Sidebar - Hidden on mobile and tablet */}
-      <div className="fixed right-0 top-0 h-screen w-[340px] overflow-y-auto py-8 px-4 border-l border-border hidden xl:block">
-        <RightSidebar />
-      </div>
 
       {/* Mobile Bottom Navigation */}
       <MobileBottomNav />

@@ -20,6 +20,7 @@ interface Post {
   timeAgo: string;
   isVideo?: boolean;
   isAI?: boolean;
+  likedBy?: string[];
 }
 
 interface PostCardProps {
@@ -40,12 +41,12 @@ export function PostCard({ post }: PostCardProps) {
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-card border border-border rounded-lg overflow-hidden"
+      className="bg-card rounded-xl overflow-hidden border border-border"
     >
       {/* Header */}
       <div className="flex items-center justify-between p-3">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full overflow-hidden">
+          <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-border">
             <img
               src={post.avatar}
               alt={post.username}
@@ -56,16 +57,16 @@ export function PostCard({ post }: PostCardProps) {
             <span className="text-sm font-semibold text-foreground">
               {post.username}
             </span>
-            {post.isAI && (
-              <span className="text-[10px] bg-secondary text-muted-foreground px-1.5 py-0.5 rounded">
-                AI
+            {post.likedBy && (
+              <span className="text-xs text-muted-foreground">
+                and {post.likedBy[0]}
               </span>
             )}
             <span className="text-xs text-muted-foreground">• {post.timeAgo}</span>
           </div>
         </div>
-        <button className="p-1 hover:bg-secondary rounded-full transition-colors">
-          <MoreHorizontal size={20} className="text-foreground" />
+        <button className="p-1.5 hover:bg-secondary rounded-full transition-colors">
+          <MoreHorizontal size={20} className="text-muted-foreground" />
         </button>
       </div>
 
@@ -78,16 +79,21 @@ export function PostCard({ post }: PostCardProps) {
         />
         {post.isVideo && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-background/80 flex items-center justify-center">
-              <Play size={32} className="text-foreground ml-1" />
+            <div className="w-16 h-16 rounded-full bg-background/80 flex items-center justify-center backdrop-blur-sm">
+              <Play size={32} className="text-foreground ml-1" fill="currentColor" />
             </div>
+          </div>
+        )}
+        {post.isAI && (
+          <div className="absolute top-3 right-3 bg-background/80 backdrop-blur-sm text-foreground text-[10px] px-2 py-1 rounded-full font-medium">
+            AI Generated
           </div>
         )}
       </div>
 
       {/* Actions */}
       <div className="p-3">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-4">
             <motion.button
               whileTap={{ scale: 0.9 }}
@@ -96,7 +102,7 @@ export function PostCard({ post }: PostCardProps) {
             >
               <Heart
                 size={24}
-                className={liked ? "fill-foreground text-foreground" : "text-foreground"}
+                className={liked ? "fill-red-500 text-red-500" : "text-foreground"}
               />
             </motion.button>
             <button className="hover:opacity-70 transition-opacity">
