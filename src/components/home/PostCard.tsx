@@ -41,37 +41,37 @@ export function PostCard({ post }: PostCardProps) {
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-card rounded-xl overflow-hidden border border-border"
+      className="bg-card border-y md:border md:rounded-none border-border"
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-3">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-border">
+      <div className="flex items-center justify-between px-3 py-2">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-pink-500/50">
             <img
               src={post.avatar}
               alt={post.username}
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-foreground">
+          <div className="flex items-center gap-1">
+            <span className="text-[13px] font-semibold text-foreground">
               {post.username}
             </span>
             {post.likedBy && (
-              <span className="text-xs text-muted-foreground">
+              <span className="text-[13px] text-muted-foreground">
                 and {post.likedBy[0]}
               </span>
             )}
-            <span className="text-xs text-muted-foreground">• {post.timeAgo}</span>
+            <span className="text-[13px] text-muted-foreground">• {post.timeAgo}</span>
           </div>
         </div>
-        <button className="p-1.5 hover:bg-secondary rounded-full transition-colors">
-          <MoreHorizontal size={20} className="text-muted-foreground" />
+        <button className="p-1 hover:opacity-70 transition-opacity">
+          <MoreHorizontal size={20} className="text-foreground" />
         </button>
       </div>
 
       {/* Image/Video */}
-      <div className="relative aspect-square bg-secondary">
+      <div className="relative aspect-[4/5] bg-secondary">
         <img
           src={post.image}
           alt="Post"
@@ -85,7 +85,7 @@ export function PostCard({ post }: PostCardProps) {
           </div>
         )}
         {post.isAI && (
-          <div className="absolute top-3 right-3 bg-background/80 backdrop-blur-sm text-foreground text-[10px] px-2 py-1 rounded-full font-medium">
+          <div className="absolute top-3 right-3 bg-background/90 backdrop-blur-sm text-foreground text-[11px] px-2.5 py-1 rounded font-medium shadow-sm">
             AI Generated
           </div>
         )}
