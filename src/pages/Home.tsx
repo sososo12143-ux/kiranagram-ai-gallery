@@ -72,32 +72,38 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="md:ml-[72px] max-w-[580px] mx-auto py-4 md:py-8 px-4 pt-16 md:pt-20 pb-20 md:pb-8">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          {/* Stories */}
-          <Stories />
+      <main className="md:ml-[72px] pb-20 md:pb-8">
+        <div className="max-w-[470px] mx-auto px-0 md:px-4 pt-16 md:pt-20">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            {/* Stories */}
+            <div className="px-4 md:px-0">
+              <Stories />
+            </div>
 
-          {/* Hero Card */}
-          <HeroCard />
+            {/* Hero Card */}
+            <div className="px-4 md:px-0">
+              <HeroCard />
+            </div>
 
-          {/* Posts */}
-          <div className="space-y-6">
-            {mockPosts.map((post, index) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <PostCard post={post} />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+            {/* Posts */}
+            <div className="space-y-3">
+              {mockPosts.map((post, index) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <PostCard post={post} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </main>
 
       {/* Mobile Bottom Navigation */}
