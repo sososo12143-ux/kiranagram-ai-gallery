@@ -2,45 +2,36 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
   Home, 
-  Search, 
   Compass, 
   Film, 
-  MessageCircle, 
-  Heart, 
-  PlusSquare, 
+  PlusCircle, 
   User,
-  Menu,
   Settings
 } from "lucide-react";
-import { KiranagraemLogo } from "@/components/KiranagraemLogo";
 
 interface NavItemProps {
   to: string;
   icon: React.ReactNode;
   label: string;
-  badge?: number;
 }
 
-const NavItem = ({ to, icon, label, badge }: NavItemProps) => (
+const NavItem = ({ to, icon, label }: NavItemProps) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `flex items-center gap-4 px-3 py-3 rounded-lg transition-all duration-200 group lg:justify-start justify-center ${
+      `flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 group justify-center hover:bg-secondary ${
         isActive 
-          ? "bg-secondary font-semibold" 
-          : "hover:bg-secondary/50"
+          ? "bg-secondary text-foreground" 
+          : "text-muted-foreground hover:text-foreground"
       }`
     }
   >
-    <span className="relative">
+    <span className="flex-shrink-0">
       {icon}
-      {badge && badge > 0 && (
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] rounded-full flex items-center justify-center">
-          {badge}
-        </span>
-      )}
     </span>
-    <span className="text-sm hidden lg:inline">{label}</span>
+    <span className="text-sm font-medium whitespace-nowrap opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto overflow-hidden transition-all duration-300">
+      {label}
+    </span>
   </NavLink>
 );
 
@@ -49,34 +40,20 @@ export function Sidebar() {
     <motion.aside
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      className="fixed left-0 top-0 h-screen w-[72px] lg:w-[220px] border-r border-border bg-background flex-col py-6 px-3 z-50 hidden md:flex"
+      className="fixed left-0 top-0 h-screen w-[72px] hover:w-[180px] border-r border-border bg-background flex-col py-6 px-3 z-50 hidden md:flex transition-all duration-300 group/sidebar"
     >
-      {/* Logo */}
-      <div className="px-3 mb-8">
-        <div className="lg:block hidden">
-          <KiranagraemLogo size="md" />
-        </div>
-        <div className="lg:hidden flex justify-center">
-          <KiranagraemLogo size="sm" />
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 space-y-1">
+      {/* Navigation - centered vertically */}
+      <nav className="flex-1 flex flex-col justify-center space-y-2">
         <NavItem to="/home" icon={<Home size={24} />} label="Home" />
-        <NavItem to="/search" icon={<Search size={24} />} label="Search" />
         <NavItem to="/explore" icon={<Compass size={24} />} label="Explore" />
         <NavItem to="/reels" icon={<Film size={24} />} label="Reels" />
-        <NavItem to="/messages" icon={<MessageCircle size={24} />} label="Messages" badge={3} />
-        <NavItem to="/notifications" icon={<Heart size={24} />} label="Notifications" />
-        <NavItem to="/create" icon={<PlusSquare size={24} />} label="Create" />
+        <NavItem to="/create" icon={<PlusCircle size={24} />} label="Create" />
         <NavItem to="/profile" icon={<User size={24} />} label="Profile" />
       </nav>
 
       {/* Bottom section */}
-      <div className="space-y-1 pt-4 border-t border-border">
+      <div className="pt-4 border-t border-border">
         <NavItem to="/settings" icon={<Settings size={24} />} label="Settings" />
-        <NavItem to="/more" icon={<Menu size={24} />} label="More" />
       </div>
     </motion.aside>
   );
